@@ -8,4 +8,6 @@ const IMAGE_B64 = "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEB
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 mkdirSync(outDir, { recursive: true });
-writeFileSync(join(outDir, 'entry.png'), Buffer.from(IMAGE_B64, 'base64'));
+const image = Buffer.from(IMAGE_B64, 'base64');
+if (image.length === 0) throw new Error('Embedded image is empty');
+writeFileSync(join(outDir, 'entry.png'), image);
